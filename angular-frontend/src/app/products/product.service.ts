@@ -5,7 +5,7 @@ import { catchError, map, Observable, throwError } from 'rxjs';
 import { Product } from './product';
 import { PRODUCTS } from './mock-products';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-const API_ENDPOINT = `{{ process.env.API_HOST }}/products`;
+const API_ENDPOINT = 'http://localhost:3000/products';
 @Injectable({
   providedIn: 'root',
 })
