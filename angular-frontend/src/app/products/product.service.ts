@@ -5,17 +5,20 @@ import { catchError, map, Observable, throwError } from 'rxjs';
 import { Product } from './product';
 import { PRODUCTS } from './mock-products';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-const API_ENDPOINT = 'http://localhost:3000/products';
+import { environment } from '../../environments/environment'
+
 @Injectable({
   providedIn: 'root',
 })
 export class ProductService {
-
-  constructor(private httpClient: HttpClient) { }
+  API_ENDPOINT = '';
+  constructor(private httpClient: HttpClient) {
+    this.API_ENDPOINT = environment.apiUrl + '/products';
+  }
 
   getProducts(): Observable<Product[]> {
     // const products = of(PRODUCTS);
-    return this.httpClient.get<any[]>(API_ENDPOINT)
+    return this.httpClient.get<any[]>(this.API_ENDPOINT)
   }
 
   getProduct(id: number | string) {
@@ -28,7 +31,7 @@ export class ProductService {
   createProduct(product: Product): Observable<Product> {
     return this.httpClient
       .post<Product>(
-        API_ENDPOINT,
+        this.API_ENDPOINT,
         product
       )
       .pipe(catchError(this.handleError))
