@@ -30,7 +30,7 @@ visit http://localhost:4200/products
 
 ## Using Docker
 
-### Build
+### Build Images
 ```bash
 # postgres
 docker pull Postgres
@@ -44,7 +44,7 @@ docker build -t products-backend .
 docker build -t products-frontend .
 ```
 
-### Run
+### Run Containers
 ```bash
 # postgres
 docker run --name pgsql-dev -p 5432:5432 \
@@ -65,5 +65,14 @@ running at http://localhost:3000/products
 # frontend
 docker run --name products-frontend -p 8080:80 \
     --rm products-frontend
+visit http://localhost:8080/products
+```
+
+### Docker Compose
+```bash
+export DATABASE_USERNAME=postgres
+export DATABASE_PASSWORD=test1234
+export DATABASE_NAME=somedb
+docker-compose -f docker-compose-angular-nestjs-sequelize-postgres.yml up
 visit http://localhost:8080/products
 ```
