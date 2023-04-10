@@ -1,0 +1,18 @@
+Dockerfile
+.dockerignore
+node_modules
+npm-debug.log
+dist
+cypress
+cypress.config.ts
+test
+.vscode
+.gitignore
+.git
+.eslintrc.js
+.prettierrc
+nest-cli.json
+README.md
+# tsconfig.build.json
+# tsconfig.json
+# .env
