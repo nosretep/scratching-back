@@ -24,9 +24,7 @@ cd angular-frontend
 npm install
 npm start
 visit http://localhost:4200/products
-
 ```
-
 
 ## Using Docker
 
