@@ -38,7 +38,6 @@ export class ProductService {
   }
 
   handleError(error: HttpErrorResponse) {
-    console.log('some error is happening')
     //To know the version of RxJS npm list --depth=0 (I for this example im on version 5.5)
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.

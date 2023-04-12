@@ -4,10 +4,12 @@ import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  // this allows angular app to consume as REST API
-  // TODO: make this environment dependent, also nginx/docker/k8s aware when applicable
-  app.enableCors();
+  // opt in to enabling cors
+  const enable_cors: boolean = (process.env.ENABLE_CORS === 'true');
+  if (enable_cors) {
+    app.enableCors();
+  }
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
-  await app.listen(3000);
+  await app.listen(process.env.PORT || 3000);
 }
 bootstrap();
