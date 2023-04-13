@@ -1,8 +1,10 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import tracer from './tracer';
 
 async function bootstrap() {
+  await tracer.start();
   const app = await NestFactory.create(AppModule);
   // opt in to enabling cors
   const enable_cors: boolean = (process.env.ENABLE_CORS === 'true');

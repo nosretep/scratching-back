@@ -18,7 +18,8 @@ export class ProductsController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string): Promise<Product> {
+  async findOne(@Param('id') id: string): Promise<Product> {
+    await new Promise(f => setTimeout(f, 5000));
     return this.productsService.findOne(id);
   }
 

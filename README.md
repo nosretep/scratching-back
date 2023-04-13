@@ -58,6 +58,8 @@ docker run --name products-backend -p 3000:3000 \
     -e DATABASE_USERNAME=postgres \
     -e DATABASE_PASSWORD=test1234 \
     -e DATABASE_NAME=somedb \
+    -e ENABLE_CORS=true \
+    -e OTLP_TRACE_EXPORTER_HOST=172.17.0.1 \
     --rm products-backend
 running at http://localhost:3000/products
 
@@ -65,6 +67,15 @@ running at http://localhost:3000/products
 docker run --name products-frontend -p 8080:80 \
     --rm products-frontend
 visit http://localhost:8080/products
+
+# jaeger
+docker run --name jaeger \
+  -e COLLECTOR_OTLP_ENABLED=true \
+  -p 16686:16686 \
+  -p 4317:4317 \
+  -p 4318:4318 \
+  --rm jaegertracing/all-in-one:1.35
+visit http://localhost:16686/
 ```
 
 ### Docker Compose
@@ -74,5 +85,8 @@ export DATABASE_PASSWORD=test1234
 export DATABASE_NAME=somedb
 export ENABLE_CORS=true
 docker-compose -f docker-compose-angular-nestjs-sequelize-postgres.yml up
+# frontend
 visit http://localhost:8080/products
+# jaeger
+visit http://localhost:16686/
 ```
