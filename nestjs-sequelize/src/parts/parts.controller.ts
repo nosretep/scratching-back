@@ -4,7 +4,7 @@ import { PartsService } from './parts.service';
 import { PartDto } from 'src/dto/part.dto';
 import { PartsFilterOptions } from 'src/interfaces/filters';
 
-@Controller('parts')
+@Controller('api/parts')
 export class PartsController {
   constructor(private readonly partsService: PartsService) { }
 

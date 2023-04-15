@@ -7,12 +7,12 @@ describe('product spec', () => {
     before(() => {
         productName0 = faker.commerce.productName();
         productName1 = faker.commerce.productName();
-        cy.request('POST', 'http://localhost:3000/products', { name: productName0 }).then(
+        cy.request('POST', 'http://localhost:4200/api/products', { name: productName0 }).then(
             (response) => {
                 product0 = response.body;
             }
         )
-        cy.request('POST', 'http://localhost:3000/products', { name: productName1 }).then(
+        cy.request('POST', 'http://localhost:4200/api/products', { name: productName1 }).then(
             (response) => {
                 product1 = response.body;
             }

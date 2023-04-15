@@ -3,7 +3,7 @@ import { ManualDto } from 'src/dto/manual.dto';
 import { Manual } from './manual.entity';
 import { ManualsService } from './manuals.service';
 
-@Controller('manuals')
+@Controller('api/manuals')
 export class ManualsController {
   constructor(private readonly manualsService: ManualsService) {}
 
