@@ -7,11 +7,20 @@ services:
       POSTGRES_DB: ${DATABASE_NAME}
     ports:
       - 5432:5432
-    healthcheck :
-      test: [ "CMD", "pg_isready", "-q", "-d", "${DATABASE_NAME}", "-U", "${DATABASE_USERNAME}" ]
-      interval : 5s
-      timeout : 5s
-      retries : 5
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "pg_isready",
+          "-q",
+          "-d",
+          "${DATABASE_NAME}",
+          "-U",
+          "${DATABASE_USERNAME}"
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
   backend:
     depends_on:
       postgres:
@@ -23,14 +32,19 @@ services:
       DATABASE_USERNAME: ${DATABASE_USERNAME}
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
       DATABASE_NAME: ${DATABASE_NAME}
-      ENABLE_CORS: ${ENABLE_CORS}
       OTLP_TRACE_EXPORTER_HOST: jaeger
     ports:
       - 3000:3000
+    links:
+      - jaeger # link this service to the api service
   frontend:
+    depends_on:
+      - backend
     image: products-frontend
     ports:
       - 8080:80
+    # links:
+    #   - backend # link this service to the api service
   jaeger:
     image: jaegertracing/all-in-one:1.35
     environment:

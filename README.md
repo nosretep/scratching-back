@@ -16,7 +16,6 @@ export DATABASE_PORT=5432
 export DATABASE_USERNAME=postgres
 export DATABASE_PASSWORD=test1234
 export DATABASE_NAME=somedb
-export ENABLE_CORS=true
 npm start
 running at http://localhost:3000/products
 
@@ -58,7 +57,6 @@ docker run --name products-backend -p 3000:3000 \
     -e DATABASE_USERNAME=postgres \
     -e DATABASE_PASSWORD=test1234 \
     -e DATABASE_NAME=somedb \
-    -e ENABLE_CORS=true \
     -e OTLP_TRACE_EXPORTER_HOST=172.17.0.1 \
     --rm products-backend
 running at http://localhost:3000/products
@@ -83,7 +81,6 @@ visit http://localhost:16686/
 export DATABASE_USERNAME=postgres
 export DATABASE_PASSWORD=test1234
 export DATABASE_NAME=somedb
-export ENABLE_CORS=true
 docker-compose -f docker-compose-angular-nestjs-sequelize-postgres.yml up
 # frontend
 visit http://localhost:8080/products
