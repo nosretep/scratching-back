@@ -18,13 +18,13 @@ services:
         condition: service_healthy
     image: products-backend
     environment:
-      DATABASE_HOST: 172.17.0.1
+      DATABASE_HOST: postgres
       DATABASE_PORT: 5432
       DATABASE_USERNAME: ${DATABASE_USERNAME}
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
       DATABASE_NAME: ${DATABASE_NAME}
       ENABLE_CORS: ${ENABLE_CORS}
-      OTLP_TRACE_EXPORTER_HOST: 172.17.0.1
+      OTLP_TRACE_EXPORTER_HOST: jaeger
     ports:
       - 3000:3000
   frontend:

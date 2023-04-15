@@ -46,7 +46,7 @@ docker build -t products-frontend .
 ### Run Containers
 ```bash
 # postgres
-docker run --name pgsql-dev -p 5432:5432 \
+docker run --name postgres -p 5432:5432 \
     -e POSTGRES_PASSWORD=test1234 \
     -e POSTGRES_DB=somedb \
     --rm postgres
