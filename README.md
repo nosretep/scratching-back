@@ -46,7 +46,7 @@ docker build -t products-frontend .
 ### Run Containers
 ```bash
 # postgres
-docker run --name pgsql-dev -p 5432:5432 \
+docker run --name postgres -p 5432:5432 \
     -e POSTGRES_PASSWORD=test1234 \
     -e POSTGRES_DB=somedb \
     --rm postgres
@@ -58,6 +58,7 @@ docker run --name products-backend -p 3000:3000 \
     -e DATABASE_USERNAME=postgres \
     -e DATABASE_PASSWORD=test1234 \
     -e DATABASE_NAME=somedb \
+    -e ENABLE_CORS=true
     --rm products-backend
 running at http://localhost:3000/products
 
