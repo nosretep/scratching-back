@@ -3,9 +3,8 @@ import { Injectable } from '@angular/core';
 import { catchError, map, Observable, throwError } from 'rxjs';
 
 import { Product } from './product';
-import { PRODUCTS } from './mock-products';
+// import { PRODUCTS } from './mock-products';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { environment } from '../../environments/environment'
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +12,7 @@ import { environment } from '../../environments/environment'
 export class ProductService {
   API_ENDPOINT = '';
   constructor(private httpClient: HttpClient) {
-    this.API_ENDPOINT = environment.apiUrl + '/products';
+    this.API_ENDPOINT = '/api/products'
   }
 
   getProducts(): Observable<Product[]> {
