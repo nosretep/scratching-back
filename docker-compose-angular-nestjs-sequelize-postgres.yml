@@ -43,8 +43,8 @@ services:
     image: products-frontend
     ports:
       - 8080:80
-    # links:
-    #   - backend # link this service to the api service
+    links:
+      - jaeger
   jaeger:
     image: jaegertracing/all-in-one:1.35
     environment:
