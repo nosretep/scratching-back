@@ -1,4 +1,9 @@
 // tracing.js
+
+/*
+  TODO: don't initiate if 'development' mode
+*/
+
 import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-http';
 import { WebTracerProvider, BatchSpanProcessor } from '@opentelemetry/sdk-trace-web';
 import { ZoneContextManager } from '@opentelemetry/context-zone';
@@ -40,32 +45,3 @@ registerInstrumentations({
     // }),
   ],
 });
-
-
-
-// import { W3CTraceContextPropagator } from '@opentelemetry/core';
-// import { ZoneContextManager } from '@opentelemetry/context-zone';
-// import { CollectorTraceExporter as HTTPTraceExporter } from '@opentelemetry/exporter-collector';
-// import { WebTracerProvider } from '@opentelemetry/sdk-trace-web';
-// import { BatchSpanProcessor } from '@opentelemetry/tracing';
-// import { Resource }  from '@opentelemetry/resources';
-// import { SemanticResourceAttributes } from '@opentelemetry/semantic-conventions';
-
-// const tracerProvider = new WebTracerProvider({
-//   resource: new Resource({ [SemanticResourceAttributes.SERVICE_NAME]: 'frontend' }),
-// });
-
-// tracerProvider.addSpanProcessor(
-//   // @ts-expect-error BatchSpanProcessor is considered incompatible with SpanProcessor
-//   new BatchSpanProcessor(
-//     new HTTPTraceExporter({
-//       url: `/v1/traces`,
-//       headers: { 'Content-Type': 'application/json' },
-//     }),
-//   ),
-// );
-
-// tracerProvider.register({
-//   contextManager: new ZoneContextManager(),
-//   propagator: new W3CTraceContextPropagator(),
-// });

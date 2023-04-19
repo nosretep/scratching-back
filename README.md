@@ -87,3 +87,19 @@ visit http://localhost:8080/products
 # jaeger
 visit http://localhost:16686/
 ```
+
+
+```bash
+# open-telemetry integration
+#   postgres
+#   backend (nestjs-sequelize)
+#   frontend (angular-frontend)
+#   otel-collector
+#   jaeger
+#   prometheus
+#   grafana
+export DATABASE_USERNAME=postgres
+export DATABASE_PASSWORD=test1234
+export DATABASE_NAME=somedb
+docker-compose -f docker-compose-open-telemetry.yml up
+```

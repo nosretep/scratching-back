@@ -35,21 +35,9 @@ services:
       OTLP_TRACE_EXPORTER_HOST: jaeger
     ports:
       - 3000:3000
-    links:
-      - jaeger # link this service to the api service
   frontend:
     depends_on:
       - backend
     image: products-frontend
     ports:
       - 8080:80
-    links:
-      - jaeger
-  jaeger:
-    image: jaegertracing/all-in-one:1.35
-    environment:
-      COLLECTOR_OTLP_ENABLED: true
-    ports:
-      - 16686:16686
-      - 4317:4317
-      - 4318:4318

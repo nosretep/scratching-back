@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Headers, Controller, Get, Param, Post, Put, HttpException, HttpStatus } from '@nestjs/common';
 import { ProductDto } from 'src/dto/product.dto';
 import { Product } from './product.entity';
 import { ProductsService } from './products.service';
@@ -19,7 +19,10 @@ export class ProductsController {
 
   @Get(':id')
   async findOne(@Param('id') id: string): Promise<Product> {
-    await new Promise(f => setTimeout(f, 5000));
+    if (id === "fake-error") {
+      throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
+    }
+    await new Promise(f => setTimeout(f, Number(id) * 1000));
     return this.productsService.findOne(id);
   }
 
