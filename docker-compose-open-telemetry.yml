@@ -36,7 +36,6 @@ services:
       DATABASE_USERNAME: ${DATABASE_USERNAME}
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
       DATABASE_NAME: ${DATABASE_NAME}
-      OTLP_TRACE_EXPORTER_HOST: otel_collector
     ports:
       - 3000:3000
     links:
@@ -56,7 +55,6 @@ services:
       - "./otel-collector/otel-collector-config.yml:/etc/otelcol/otel-collector-config.yml"
     command: --config /etc/otelcol/otel-collector-config.yml
     ports:
-      - 4317:4317
       - 4318:4318
     depends_on:
       - jaeger

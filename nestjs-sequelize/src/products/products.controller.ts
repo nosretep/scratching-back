@@ -22,7 +22,7 @@ export class ProductsController {
     if (id === "fake-error") {
       throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
     }
-    await new Promise(f => setTimeout(f, Number(id) * 1000));
+    // await new Promise(f => setTimeout(f, Number(id) * 1000));
     return this.productsService.findOne(id);
   }
 
