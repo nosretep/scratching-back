@@ -57,7 +57,6 @@ npm start
 visit http://localhost:4200/products
 ```
 
-
 ```bash
 # .env file
 OPSGENIE_API_KEY=
