@@ -21,10 +21,21 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+
+  otel_collector:
+    image: otel/opentelemetry-collector-contrib:latest
+    volumes:
+      - "./otel-collector/otel-collector-config-minimal.yml:/etc/otelcol/otel-collector-config.yml"
+    command: --config /etc/otelcol/otel-collector-config.yml
+    ports:
+      - 4318:4318
+
   backend:
     depends_on:
       postgres:
         condition: service_healthy
+      otel_collector:
+        condition: service_started
     image: products-backend
     environment:
       DATABASE_HOST: postgres
@@ -34,11 +45,11 @@ services:
       DATABASE_NAME: ${DATABASE_NAME}
     ports:
       - 3000:3000
+
   frontend:
     depends_on:
       - backend
+      - otel_collector
     image: products-frontend
     ports:
       - 8080:80
-    # links:
-    #   - backend # link this service to the api service

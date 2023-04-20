@@ -21,10 +21,7 @@ export class ProductService {
   }
 
   getProduct(id: number | string) {
-    return this.getProducts().pipe(
-      // (+) before `id` turns the string into a number
-      map((products: Product[]) => products.find(product => product.id === +id)!)
-    );
+    return this.httpClient.get<Product>(this.API_ENDPOINT + "/" + id)
   }
 
   createProduct(product: Product): Observable<Product> {
