@@ -26,9 +26,6 @@ docker build -t products-frontend .
 #   jaeger
 #   prometheus
 #   grafana
-export DATABASE_USERNAME=postgres
-export DATABASE_PASSWORD=test1234
-export DATABASE_NAME=somedb
 docker-compose -f docker-compose-open-telemetry.yml up
 ```
 ### Minimal docker integration
@@ -38,9 +35,6 @@ docker-compose -f docker-compose-open-telemetry.yml up
 #   backend (nestjs-sequelize)
 #   frontend (angular-frontend)
 #   otel-collector (minimal)
-export DATABASE_USERNAME=postgres
-export DATABASE_PASSWORD=test1234
-export DATABASE_NAME=somedb
 docker-compose -f docker-compose-minimal.yml up
 ```
 
@@ -53,11 +47,6 @@ Depends on a running postgres database that corresponds with the following datab
 # backend
 cd nestjs-sequelize
 npm install
-export DATABASE_HOST=localhost
-export DATABASE_PORT=5432
-export DATABASE_USERNAME=postgres
-export DATABASE_PASSWORD=test1234
-export DATABASE_NAME=somedb
 npm start
 running at http://localhost:3000/products
 
@@ -66,4 +55,15 @@ cd angular-frontend
 npm install
 npm start
 visit http://localhost:4200/products
+```
+
+
+```bash
+# .env file
+OPSGENIE_API_KEY=
+DATABASE_HOST=
+DATABASE_PORT=
+DATABASE_USERNAME=
+DATABASE_PASSWORD=
+DATABASE_NAME=
 ```
