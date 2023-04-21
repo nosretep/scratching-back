@@ -57,6 +57,7 @@ services:
       - "./otel-collector/otel-collector-config.yml:/etc/otelcol/otel-collector-config.yml"
     command: --config /etc/otelcol/otel-collector-config.yml
     ports:
+      - 4317:4317
       - 4318:4318
     depends_on:
       - jaeger
@@ -106,3 +107,30 @@ services:
     depends_on:
       - jaeger
       - prometheus
+
+  keycloak:
+    container_name: keycloak
+    build:
+      context: .
+      dockerfile: ./keycloak/Dockerfile
+    environment:
+      JAVA_OPTS_APPEND: "-javaagent:/tmp/opentelemetry-javaagent.jar"
+      OTEL_SERVICE_NAME: keycloak
+      OTEL_TRACES_EXPORTER: otlp
+      OTEL_METRICS_EXPORTER: otlp
+      OTEL_EXPORTER_OTLP_ENDPOINT: http://otel_collector:4317
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      # KC_METRICS_ENABLED: "true"
+      # KC_HEALTH_ENABLED: "true"
+      # KC_HTTP_ENABLED: "true"
+      # KC_PROXY: edge
+    depends_on:
+      - otel_collector
+    command:
+      - start-dev
+      # - '--log-console-output=json'
+      # - '--log=console'
+      # - '--log-level=DEBUG'
+    ports:
+      - 7777:8080
