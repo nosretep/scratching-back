@@ -3,6 +3,7 @@ services:
 
   postgres:
     image: postgres
+    container_name: postgres
     environment:
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
       POSTGRES_DB: ${DATABASE_NAME}
@@ -30,6 +31,7 @@ services:
       otel_collector:
         condition: service_started
     image: products-backend
+    container_name: backend
     environment:
       DATABASE_HOST: postgres
       DATABASE_PORT: 5432
@@ -38,19 +40,19 @@ services:
       DATABASE_NAME: ${DATABASE_NAME}
     ports:
       - 3000:3000
-    links:
-      - otel_collector
 
   frontend:
     depends_on:
       - backend
       - otel_collector
     image: products-frontend
+    container_name: frontend
     ports:
       - 8080:80
 
   otel_collector:
     image: otel/opentelemetry-collector-contrib:latest
+    container_name: otel_collector
     volumes:
       - "./otel-collector/otel-collector-config.yml:/etc/otelcol/otel-collector-config.yml"
     command: --config /etc/otelcol/otel-collector-config.yml
@@ -62,6 +64,7 @@ services:
 
   prometheus:
     image: prom/prometheus:latest
+    container_name: prometheus
     volumes:
       - "./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml"
     ports:
@@ -72,6 +75,7 @@ services:
 
   jaeger:
     image: jaegertracing/all-in-one:latest
+    container_name: jaeger
     volumes:
       - "./jaeger/jaeger-ui.json:/etc/jaeger/jaeger-ui.json"
     command: --query.ui-config /etc/jaeger/jaeger-ui.json
@@ -83,6 +87,7 @@ services:
 
   grafana:
     image: grafana/grafana:latest
+    container_name: grafana
     volumes:
       - ./grafana/provisioning:/etc/grafana/provisioning
     environment:
