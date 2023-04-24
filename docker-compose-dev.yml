@@ -1,0 +1,28 @@
+version: '3'
+services:
+
+  otel_collector:
+    container_name: otel_collector
+    image: mockserver/mockserver:latest
+    environment:
+      MOCKSERVER_LOG_LEVEL: DEBUG
+      MOCKSERVER_SERVER_PORT: 4318
+      MOCKSERVER_INITIALIZATION_JSON_PATH: /config/initializerJson.json
+    ports:
+      - 4318:4318
+    volumes:
+      - ./mockserver/config:/config
+
+  keycloak:
+    container_name: keycloak
+    image: quay.io/keycloak/keycloak:latest
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    ports:
+      - 5000:8080
+    volumes:
+      - "./keycloak/realms/import:/opt/keycloak/data/import"
+    command:
+      - start-dev
+      - --import-realm

@@ -1,4 +1,29 @@
 /// <reference types="cypress" />
+declare namespace Cypress {
+    interface Chainable<Subject = any> {
+        login(username: string, password: string): Chainable<null>;
+    }
+}
+Cypress.on('uncaught:exception', err => {
+    return false
+})
+
+Cypress.Commands.add('login', (username: string, password: string) => {
+    // TODO: this is awful!
+    // TODO: API specs shouldn't require front end!
+    cy.request('GET', `http://localhost:4200/auth/userinfo`)
+        .then(
+            (response) => {
+                if (response.body === '') {
+                    cy.visit('http://localhost:4200/auth/login') // redirect to keycloak
+                    cy.get('#username').type(username)
+                    cy.get('#password').type(password)
+                    cy.get('input[name="login"]').click() // redirect back to `http://localhost:4200/welcome`
+                }
+            }
+        )
+})
+
 // ***********************************************
 // This example commands.ts shows you how to
 // create various custom commands and overwrite

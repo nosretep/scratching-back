@@ -24,12 +24,39 @@ services:
       timeout: 5s
       retries: 5
 
+  keycloak:
+    container_name: keycloak
+    build:
+      context: .
+      dockerfile: ./keycloak/Dockerfile
+    environment:
+      JAVA_OPTS_APPEND: "-javaagent:/tmp/opentelemetry-javaagent.jar"
+      OTEL_SERVICE_NAME: keycloak
+      OTEL_TRACES_EXPORTER: otlp
+      # OTEL_METRICS_EXPORTER: none
+      OTEL_EXPORTER_OTLP_ENDPOINT: http://otel_collector:4317
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    ports:
+      - 5000:8080
+    volumes:
+      - "./keycloak/realms/import:/opt/keycloak/data/import"
+    entrypoint: ["/opt/keycloak/bin/kc.sh", "start-dev", "--import-realm", "--hostname-url=http://localhost:5000"]
+    healthcheck:
+      # TODO: curl no longer installed on keycloak, and not clear why this test works.
+      test: ["CMD", "ls", "-al", "/etc/hostname"]
+      interval: 30s
+      timeout: 30s
+      retries: 15
+
   backend:
     depends_on:
       postgres:
         condition: service_healthy
       otel_collector:
         condition: service_started
+      keycloak:
+        condition: service_healthy
     image: products-backend
     container_name: backend
     environment:
@@ -38,6 +65,13 @@ services:
       DATABASE_USERNAME: ${DATABASE_USERNAME}
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
       DATABASE_NAME: ${DATABASE_NAME}
+      OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER:
+      OAUTH2_CLIENT_REGISTRATION_LOGIN_CLIENT_ID:
+      OAUTH2_CLIENT_REGISTRATION_LOGIN_CLIENT_SECRET:
+      OAUTH2_CLIENT_REGISTRATION_LOGIN_SCOPE:
+      OAUTH2_CLIENT_REGISTRATION_LOGIN_REDIRECT_URI:
+      OAUTH2_CLIENT_REGISTRATION_LOGIN_POST_LOGOUT_REDIRECT_URI:
+      SESSION_SECRET:
     ports:
       - 3000:3000
 
@@ -48,7 +82,7 @@ services:
     image: products-frontend
     container_name: frontend
     ports:
-      - 8080:80
+      - 4200:80
 
   otel_collector:
     image: otel/opentelemetry-collector-contrib:latest
@@ -108,29 +142,3 @@ services:
       - jaeger
       - prometheus
 
-  keycloak:
-    container_name: keycloak
-    build:
-      context: .
-      dockerfile: ./keycloak/Dockerfile
-    environment:
-      JAVA_OPTS_APPEND: "-javaagent:/tmp/opentelemetry-javaagent.jar"
-      OTEL_SERVICE_NAME: keycloak
-      OTEL_TRACES_EXPORTER: otlp
-      OTEL_METRICS_EXPORTER: otlp
-      OTEL_EXPORTER_OTLP_ENDPOINT: http://otel_collector:4317
-      KEYCLOAK_ADMIN: admin
-      KEYCLOAK_ADMIN_PASSWORD: admin
-      # KC_METRICS_ENABLED: "true"
-      # KC_HEALTH_ENABLED: "true"
-      # KC_HTTP_ENABLED: "true"
-      # KC_PROXY: edge
-    depends_on:
-      - otel_collector
-    command:
-      - start-dev
-      # - '--log-console-output=json'
-      # - '--log=console'
-      # - '--log-level=DEBUG'
-    ports:
-      - 7777:8080

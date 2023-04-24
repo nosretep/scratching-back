@@ -5,8 +5,8 @@ import { ProductListComponent } from './product-list/product-list.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 
 const productsRoutes: Routes = [
-  { path: 'products',  component: ProductListComponent, data: { animation: 'products' } },
-  { path: 'product/:id', component: ProductDetailComponent, data: { animation: 'product' } }
+  { path: 'products',  component: ProductListComponent },
+  { path: 'product/:id', component: ProductDetailComponent }
 ];
 
 @NgModule({

@@ -29,8 +29,6 @@ export class PartsService {
       }
     })
     let someval = await retVal.$get('products');
-    console.log(someval)
-    // console.log(retVal);
     return retVal;
     // return this.partsRepository.findOne<Manual>({
     //   where: {

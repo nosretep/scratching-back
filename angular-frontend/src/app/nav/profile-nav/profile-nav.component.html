@@ -1,0 +1,9 @@
+<div *ngIf="userinfo | async as userinfo; else loggedOut">
+    {{userinfo?.name}}
+    <a href="/auth/logout">Logout</a>
+</div>
+
+<ng-template #loggedOut>
+    anonymous user
+    <a href="/auth/login">Login</a>
+</ng-template>

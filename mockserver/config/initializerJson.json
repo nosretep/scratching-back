@@ -1,0 +1,12 @@
+[
+    {
+        "httpRequest": {
+            "method": "POST",
+            "path": "/v1/traces"
+        },
+        "httpResponse": {
+            "body": "{}",
+            "statusCode": 200
+        }
+    }
+]

@@ -19,8 +19,6 @@ export class ManualsService {
         id: id
       }
     })
-    console.log(retVal.product);
-    console.log(retVal);
     return retVal;
     // return this.manualsRepository.findOne<Manual>({
     //   where: {

@@ -1,10 +1,13 @@
 import { faker } from '@faker-js/faker';
 
 describe('product spec', () => {
+
     let product0, productName0: string;
     let product1, productName1: string;
 
     before(() => {
+        cy.login('mary', 'admin')
+
         productName0 = faker.commerce.productName();
         productName1 = faker.commerce.productName();
         cy.request('POST', 'http://localhost:4200/api/products', { name: productName0 }).then(
@@ -19,8 +22,12 @@ describe('product spec', () => {
         )
     })
 
+    beforeEach(() => {
+        cy.login('mary', 'admin')
+    })
+
     it('should have the products in the product list', () => {
-        cy.visit('http://localhost:4200/')
+        cy.visit('http://localhost:4200/products')
         cy.get('body').should(($body) => {
             const text = $body.text()
             expect(text).to.include(productName0)
@@ -30,8 +37,7 @@ describe('product spec', () => {
 
     it('should create a new product and show it in the product list', () => {
         let newProductName = faker.commerce.productName();
-        console.log(newProductName);
-        cy.visit('http://localhost:4200/');
+        cy.visit('http://localhost:4200/products');
         cy.get('button').contains('Add new product').click();
         cy.get('input#name').type(newProductName);
         cy.get('button').contains('Submit').click();
