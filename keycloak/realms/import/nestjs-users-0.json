@@ -1,0 +1,82 @@
+{
+  "realm" : "nestjs",
+  "users" : [ {
+    "id" : "a47a8aa0-51d3-4239-abc8-4d11e819bd0a",
+    "createdTimestamp" : 1682371866695,
+    "username" : "joe",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : true,
+    "firstName" : "joe",
+    "lastName" : "readonly",
+    "email" : "joe@keycloak.org",
+    "credentials" : [ {
+      "id" : "f6443a0d-0ac8-4f60-8033-de41bb079ece",
+      "type" : "password",
+      "userLabel" : "My password",
+      "createdDate" : 1682371889206,
+      "secretData" : "{\"value\":\"Ho71aZC0te3Pmx2JWiomYOIlH9WHLBBgCReF3cBKo88=\",\"salt\":\"v7toPOfnnpy4dBsLQH80Mw==\",\"additionalParameters\":{}}",
+      "credentialData" : "{\"hashIterations\":27500,\"algorithm\":\"pbkdf2-sha256\",\"additionalParameters\":{}}"
+    } ],
+    "disableableCredentialTypes" : [ ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "default-roles-nestjs" ],
+    "clientRoles" : {
+      "nestjs-client" : [ "can-read" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ ]
+  }, {
+    "id" : "eff35518-a933-4700-bd20-ebd0a97c6682",
+    "createdTimestamp" : 1682229242401,
+    "username" : "mark",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : true,
+    "firstName" : "mark",
+    "lastName" : "keycloak",
+    "email" : "mark@keycloak.org",
+    "credentials" : [ {
+      "id" : "281a51fa-376b-4ee8-b8a9-8286f8ec8ad4",
+      "type" : "password",
+      "userLabel" : "My password",
+      "createdDate" : 1682229251094,
+      "secretData" : "{\"value\":\"57O/l5wXJaSHvEVeXBvpn5mUaMlBUAwVSUViGz+saf8=\",\"salt\":\"HSvJ5sHT+fnK6vZB/5Bfhg==\",\"additionalParameters\":{}}",
+      "credentialData" : "{\"hashIterations\":27500,\"algorithm\":\"pbkdf2-sha256\",\"additionalParameters\":{}}"
+    } ],
+    "disableableCredentialTypes" : [ ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "default-roles-nestjs" ],
+    "clientRoles" : {
+      "nestjs-client" : [ "can-delete", "can-read", "can-write" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ ]
+  }, {
+    "id" : "25c3401a-9ac7-40d9-bcd3-ade2c87096c9",
+    "createdTimestamp" : 1682371754828,
+    "username" : "mary",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : true,
+    "firstName" : "mary",
+    "lastName" : "fullcrud",
+    "email" : "mary@keycloak.org",
+    "credentials" : [ {
+      "id" : "d8cf17da-acdc-429c-8974-500dace55668",
+      "type" : "password",
+      "userLabel" : "My password",
+      "createdDate" : 1682371796627,
+      "secretData" : "{\"value\":\"GC9ihmh2g2hK9v7yczufLy7t3BsD8xcbL/m9ci2TWHo=\",\"salt\":\"bIv8GcKQWow8pAh9a+aTHA==\",\"additionalParameters\":{}}",
+      "credentialData" : "{\"hashIterations\":27500,\"algorithm\":\"pbkdf2-sha256\",\"additionalParameters\":{}}"
+    } ],
+    "disableableCredentialTypes" : [ ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "default-roles-nestjs" ],
+    "clientRoles" : {
+      "nestjs-client" : [ "can-delete", "can-read", "can-write" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ ]
+  } ]
+}

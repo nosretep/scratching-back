@@ -4,11 +4,18 @@ describe('product spec', () => {
   let product0, productName0, part0, partName0;
   let product1, productName1, part1, partName1;
 
+  beforeEach(() => {
+    cy.login('mary', 'admin')
+  })
+
   before(() => {
+    cy.login('mary', 'admin')
+
     productName0 = faker.commerce.productName();
     partName0 = faker.commerce.productMaterial();
     productName1 = faker.commerce.productName();
     partName1 = faker.commerce.productMaterial();
+
     cy.request('POST', 'http://localhost:3000/api/products', { name: productName0 }).then(
       (response) => {
         product0 = response.body;
@@ -19,16 +26,19 @@ describe('product spec', () => {
         product1 = response.body;
       }
     )
+
     cy.request('POST', 'http://localhost:3000/api/parts', { name: partName0 }).then(
       (response) => {
         part0 = response.body;
       }
     )
+
     cy.request('POST', 'http://localhost:3000/api/parts', { name: partName1 }).then(
       (response) => {
         part1 = response.body;
       }
     )
+
   })
 
   it('should have created the product and part in before', () => {
@@ -36,6 +46,20 @@ describe('product spec', () => {
     expect(part0).to.have.property('name', partName0) // true
     expect(product1).to.have.property('name', productName1) // true
     expect(part1).to.have.property('name', partName1) // true
+  })
+
+  it('should error when creating product without "name"', () => {
+    cy.request({
+      method: 'POST',
+      url: 'http://localhost:3000/api/products',
+      body: { name: '' },
+      failOnStatusCode: false
+    }).then(
+      (response) => {
+        expect(response.status).to.eq(400)
+        expect(response.body.message[0]).to.contain("name should not be empty")
+      }
+    )
   })
 
   it('should associate part to product and then retrieve parts from parts', () => {
@@ -52,18 +76,6 @@ describe('product spec', () => {
       )
   })
 
-  it('should error when creating product without "name"', () => {
-    cy.request({
-      method: 'POST',
-      url: 'http://localhost:3000/api/products',
-      body: { name: '' },
-      failOnStatusCode: false
-    }).then(
-      (response) => {
-        expect(response.status).to.eq(400)
-        expect(response.body.message[0]).to.contain("name should not be empty")
-      }
-    )
-  })
+
 
 })
