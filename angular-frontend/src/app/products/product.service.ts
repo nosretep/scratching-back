@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
-
-import { catchError, map, Observable, throwError } from 'rxjs';
-
+import { catchError, Observable, throwError } from 'rxjs';
 import { Product } from './product';
-// import { PRODUCTS } from './mock-products';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
@@ -16,11 +13,10 @@ export class ProductService {
   }
 
   getProducts(): Observable<Product[]> {
-    // const products = of(PRODUCTS);
     return this.httpClient.get<any[]>(this.API_ENDPOINT)
   }
 
-  getProduct(id: number | string) {
+  getProduct(id: number | string): Observable<Product> {
     return this.httpClient.get<Product>(this.API_ENDPOINT + "/" + id)
   }
 
