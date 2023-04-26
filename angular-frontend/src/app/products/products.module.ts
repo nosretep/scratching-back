@@ -9,6 +9,7 @@ import { ProductsRoutingModule } from './products-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NewProductFormComponent } from './new-product-form/new-product-form.component';
+import { HasPermissionsDirective } from '../directives/has-permission.directive';
 
 @NgModule({
   imports: [
@@ -21,7 +22,8 @@ import { NewProductFormComponent } from './new-product-form/new-product-form.com
   declarations: [
     ProductListComponent,
     ProductDetailComponent,
-    NewProductFormComponent
+    NewProductFormComponent,
+    HasPermissionsDirective
   ]
 })
 export class ProductsModule {}

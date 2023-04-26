@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <new-product-form (updateProductList)="updateProductList()"></new-product-form>
+    <new-product-form (updateProductList)="updateProductList()" *appHasPermissions="['can-write']"></new-product-form>
   </div>
   <div class="row">
     <ul class="products list-group">
