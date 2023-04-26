@@ -38,10 +38,16 @@ services:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
     ports:
-      - 5000:8080
+      - 8787:8787
     volumes:
       - "./keycloak/realms/import:/opt/keycloak/data/import"
-    entrypoint: ["/opt/keycloak/bin/kc.sh", "start-dev", "--import-realm", "--hostname-url=http://localhost:5000"]
+    entrypoint: [
+      "/opt/keycloak/bin/kc.sh",
+      "start-dev",
+      "--import-realm",
+      "--hostname-url=http://localhost:8787",
+      "--http-port=8787"
+    ]
     healthcheck:
       # TODO: curl no longer installed on keycloak, and not clear why this test works.
       test: ["CMD", "ls", "-al", "/etc/hostname"]
@@ -82,7 +88,7 @@ services:
     image: products-frontend
     container_name: frontend
     ports:
-      - 4200:80
+      - 4200:4200
 
   otel_collector:
     image: otel/opentelemetry-collector-contrib:latest
