@@ -20,9 +20,13 @@ services:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
     ports:
-      - 5000:8080
+      - 8787:8787
     volumes:
       - "./keycloak/realms/import:/opt/keycloak/data/import"
-    command:
-      - start-dev
-      - --import-realm
+    entrypoint: [
+      "/opt/keycloak/bin/kc.sh",
+      "start-dev",
+      "--import-realm",
+      "--hostname-url=http://localhost:8787",
+      "--http-port=8787"
+    ]
