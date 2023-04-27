@@ -1,8 +1,10 @@
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
 import { ManualDto } from 'src/dto/manual.dto';
 import { Manual } from './manual.entity';
 import { ManualsService } from './manuals.service';
+import { AuthenticatedGuard } from 'src/auth/authenticated.guard';
 
+@UseGuards(AuthenticatedGuard)
 @Controller('api/manuals')
 export class ManualsController {
   constructor(private readonly manualsService: ManualsService) {}
