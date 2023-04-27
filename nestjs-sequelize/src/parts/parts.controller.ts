@@ -1,9 +1,11 @@
-import { Body, Controller, Get, Param, Post, Put, Query } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
 import { Part } from './part.entity';
 import { PartsService } from './parts.service';
 import { PartDto } from 'src/dto/part.dto';
 import { PartsFilterOptions } from 'src/interfaces/filters';
+import { AuthenticatedGuard } from 'src/auth/authenticated.guard';
 
+@UseGuards(AuthenticatedGuard)
 @Controller('api/parts')
 export class PartsController {
   constructor(private readonly partsService: PartsService) { }

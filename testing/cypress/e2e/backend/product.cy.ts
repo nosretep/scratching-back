@@ -1,8 +1,8 @@
 import { faker } from '@faker-js/faker';
 
 describe('product spec', () => {
-  let product0, productName0, part0, partName0;
-  let product1, productName1, part1, partName1;
+  let product0: any, productName0: string, part0: any, partName0: string;
+  let product1: any, productName1: string, part1: any, partName1: string;
 
   beforeEach(() => {
     cy.login('mary', 'admin')
