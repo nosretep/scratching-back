@@ -7,3 +7,22 @@ scrape_configs:
   - job_name: aggregated-trace-metrics
     static_configs:
     - targets: ['otel_collector:8889']
+  - job_name: blackbox-exporter
+    metrics_path: '/probe'
+    scrape_interval: 5s
+    params:
+      module: [http_2xx]
+    static_configs:
+    - targets:
+      - prometheus:9090
+      - grafana:2345
+      - frontend:4200
+      - backend:3000
+      - jaeger:16686
+    relabel_configs:
+    - source_labels: [__address__]
+      target_label: __param_target
+    - source_labels: [__param_target]
+      target_label: instance
+    - target_label: __address__
+      replacement: blackbox-exporter:9115

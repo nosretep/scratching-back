@@ -148,3 +148,12 @@ services:
       - jaeger
       - prometheus
 
+  blackbox-exporter:
+    image: prom/blackbox-exporter:latest
+    container_name: blackbox-exporter
+    ports:
+    - 9115:9115
+    command:
+    - --config.file=/etc/blackbox-exporter/blackbox-exporter.yml
+    volumes:
+    - ./blackbox-exporter/blackbox-exporter.yml:/etc/blackbox-exporter/blackbox-exporter.yml
