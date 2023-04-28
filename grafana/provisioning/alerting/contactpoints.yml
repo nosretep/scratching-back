@@ -1,36 +1,117 @@
-# config file version
 apiVersion: 1
 
-# List of contact points to import or update
-contactPoints:
-  # <int> organization ID, default = 1
+templates:
+  - orgID: 1
+    name: opsgenie-message-template
+    template: '{{ .GroupLabels.SortedPairs.Values | join " " }}{{ if gt (len .CommonLabels) (len .GroupLabels) }}({{ with .CommonLabels.Remove .GroupLabels.Names }}{{ .Values | join " " }}{{ end }}){{ end }}'
+
+groups:
   - orgId: 1
-    # <string, required> name of the contact point
-    name: MyContactPoint
+    name: service-alert-rules-group
+    folder: service-alert-rules-folder
+    interval: 1m
+    rules:
+      - uid: service-down-uid
+        title: service-down
+        condition: C
+        data:
+          - refId: A
+            relativeTimeRange:
+              from: 600
+              to: 0
+            datasourceUid: prometheus-uid
+            model:
+              editorMode: builder
+              expr: probe_success{job="blackbox-exporter"}
+              hide: false
+              intervalMs: 1000
+              legendFormat: __auto
+              maxDataPoints: 43200
+              range: true
+              refId: A
+          - refId: B
+            relativeTimeRange:
+              from: 600
+              to: 0
+            datasourceUid: __expr__
+            model:
+              conditions:
+                - evaluator:
+                    params: []
+                    type: gt
+                  operator:
+                    type: and
+                  query:
+                    params:
+                      - B
+                  reducer:
+                    params: []
+                    type: last
+                  type: query
+              datasource:
+                type: __expr__
+                uid: __expr__
+              expression: A
+              hide: false
+              intervalMs: 1000
+              maxDataPoints: 43200
+              reducer: last
+              refId: B
+              type: reduce
+          - refId: C
+            relativeTimeRange:
+              from: 600
+              to: 0
+            datasourceUid: __expr__
+            model:
+              conditions:
+                - evaluator:
+                    params:
+                      - 1
+                    type: lt
+                  operator:
+                    type: and
+                  query:
+                    params:
+                      - C
+                  reducer:
+                    params: []
+                    type: last
+                  type: query
+              datasource:
+                type: __expr__
+                uid: __expr__
+              expression: B
+              hide: false
+              intervalMs: 1000
+              maxDataPoints: 43200
+              refId: C
+              type: threshold
+        noDataState: NoData
+        execErrState: Error
+        for: 2m
+        isPaused: false
+
+contactPoints:
+  - orgId: 1
+    name: opsgenie-contact-point
     receivers:
-      # <string, required> unique identifier for the receiver
-      - uid: first_uid
+      - uid: opsgenie-uid
         type: opsgenie
         settings:
-          # <string, required>
           apiKey: $OPSGENIE_API_KEY
-          # <string, required>
           apiUrl: https://api.opsgenie.com/v2/alerts
-          # <string>
           message: |
-            {{ template "default.title" . }}
-          # <string>
-          description: some descriptive description
-          # <bool>
-          autoClose: false
-          # <bool>
+            {{ template "opsgenie-message-template" . }}
+          description: ''
+          autoClose: true
           overridePriority: false
-          # <string> options: tags, details, both
           sendTagsAs: both
 
-# List of notification policies
 policies:
-  # <int> organization ID, default = 1
   - orgId: 1
-    # <string> name of the contact point that should be used for this route
-    receiver: MyContactPoint
+    receiver: opsgenie-contact-point
+
+deleteContactPoints:
+  - orgId: 1
+    name: grafana-default-email
