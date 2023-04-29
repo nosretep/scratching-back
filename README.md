@@ -1,5 +1,5 @@
 
-# Sample Apps Using Some Latest Web Stack Frameworks
+# Sample Web App Infrastructure
 
 Sample web application using an Angular frontend and a NestJs with Sequelize ORM as a backend persisted by a Postgres database
 

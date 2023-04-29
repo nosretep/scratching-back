@@ -1,0 +1,17 @@
+
+global:
+  resolve_timeout: 1m
+  opsgenie_api_key_file: '/etc/alertmanager/opsgenie_api_key.txt'
+receivers:
+  - opsgenie_configs:
+    - responders:
+        - type: team
+          name: "MyTeam"
+    - priority: '{{ if eq .GroupLabels.severity "critical"}}P1{{else if eq .GroupLabels.severity "warning"}}P2{{else}}P3{{end}}'
+    name: opsgenie
+route:
+  group_by: ['alertname', 'severity']
+  group_wait: 30s
+  group_interval: 5m
+  receiver: opsgenie
+  repeat_interval: 4h
