@@ -1,5 +1,5 @@
 
-# Sample Apps Using Some Latest Web Stack Frameworks
+# Sample Web App Infrastructure
 
 Sample web application using an Angular frontend and a NestJs with Sequelize ORM as a backend persisted by a Postgres database
 
@@ -27,6 +27,8 @@ docker build -t products-frontend .
 #   otel-collector
 #   jaeger
 #   prometheus
+#   blackbox-exporter
+#   alertmanager
 #   grafana
 docker-compose -f docker-compose-open-telemetry.yml up
 ```

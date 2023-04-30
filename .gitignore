@@ -1,2 +1,4 @@
 .env
 .DS_Store
+
+opsgenie_api_key.txt
