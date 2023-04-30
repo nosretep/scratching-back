@@ -27,6 +27,8 @@ docker build -t products-frontend .
 #   otel-collector
 #   jaeger
 #   prometheus
+#   blackbox-exporter
+#   alertmanager
 #   grafana
 docker-compose -f docker-compose-open-telemetry.yml up
 ```
