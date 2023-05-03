@@ -3,7 +3,7 @@ services:
 
   postgres:
     image: postgres
-    container_name: postgres
+    container_name: ${DATABASE_HOST}
     environment:
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
       POSTGRES_DB: ${DATABASE_NAME}
@@ -28,7 +28,7 @@ services:
     container_name: keycloak
     build:
       context: .
-      dockerfile: ./keycloak/Dockerfile
+      dockerfile: ../../keycloak/Dockerfile
     environment:
       JAVA_OPTS_APPEND: "-javaagent:/tmp/opentelemetry-javaagent.jar"
       OTEL_SERVICE_NAME: keycloak
@@ -40,7 +40,7 @@ services:
     ports:
       - 8787:8787
     volumes:
-      - "./keycloak/realms/import:/opt/keycloak/data/import"
+      - ../../keycloak/config/realms/import:/opt/keycloak/data/import
     entrypoint: [
       "/opt/keycloak/bin/kc.sh",
       "start-dev",
@@ -66,8 +66,8 @@ services:
     image: products-backend
     container_name: backend
     environment:
-      DATABASE_HOST: postgres
-      DATABASE_PORT: 5432
+      DATABASE_HOST: ${DATABASE_HOST}
+      DATABASE_PORT: ${DATABASE_PORT}
       DATABASE_USERNAME: ${DATABASE_USERNAME}
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
       DATABASE_NAME: ${DATABASE_NAME}
@@ -94,8 +94,8 @@ services:
     image: otel/opentelemetry-collector-contrib:latest
     container_name: otel_collector
     volumes:
-      - "./otel-collector/otel-collector-config.yml:/etc/otelcol/otel-collector-config.yml"
-    command: --config /etc/otelcol/otel-collector-config.yml
+      - ../../otel-collector/config:/etc/otel-collector
+    command: --config /etc/otel-collector/otel-collector-config.yml
     ports:
       - 4317:4317
       - 4318:4318
@@ -107,7 +107,7 @@ services:
     image: prom/prometheus:latest
     container_name: prometheus
     volumes:
-      - ./prometheus:/etc/prometheus
+      - ../../prometheus/config:/etc/prometheus
     ports:
       - 9090:9090
     command:
@@ -118,8 +118,8 @@ services:
     image: jaegertracing/all-in-one:latest
     container_name: jaeger
     volumes:
-      - "./jaeger/jaeger-ui.json:/etc/jaeger/jaeger-ui.json"
-    command: --query.ui-config /etc/jaeger/jaeger-ui.json
+      - ../../jaeger/config:/etc/jaeger/jaeger
+    command: --query.ui-config /etc/jaeger/jaeger/jaeger-ui.json
     environment:
       - METRICS_STORAGE_TYPE=prometheus
       - PROMETHEUS_SERVER_URL=http://prometheus:9090
@@ -130,7 +130,7 @@ services:
     image: grafana/grafana:latest
     container_name: grafana
     volumes:
-      - ./grafana/provisioning:/etc/grafana/provisioning
+      - ../../grafana/config:/etc/grafana/provisioning
     environment:
       - GF_SERVER_HTTP_PORT=2345
       # - GF_SECURITY_ADMIN_USER=admin
@@ -156,7 +156,7 @@ services:
     command:
       - --config.file=/etc/blackbox-exporter/blackbox-exporter.yml
     volumes:
-      - ./blackbox-exporter/blackbox-exporter.yml:/etc/blackbox-exporter/blackbox-exporter.yml
+      - ../../blackbox-exporter/config:/etc/blackbox-exporter
 
   alertmanager:
     image: prom/alertmanager:latest
@@ -164,7 +164,7 @@ services:
     ports:
       - 9093:9093
     volumes:
-      - ./alertmanager:/etc/alertmanager
+      - ../../alertmanager/config:/etc/alertmanager
     command:
       - '--config.file=/etc/alertmanager/alertmanager.yml'
       - '--storage.path=/alertmanager'
