@@ -9,9 +9,12 @@ import { Response } from 'express';
 
 import { LoginGuard } from './login.guard';
 import { Issuer } from 'openid-client';
+import { UsersService } from 'src/users/users.service';
 
 @Controller('auth')
 export class AuthController {
+
+  constructor(private readonly usersService: UsersService) { }
 
   @UseGuards(LoginGuard)
   @Get('/login')
@@ -29,8 +32,13 @@ export class AuthController {
 
   @UseGuards(LoginGuard)
   @Get('/callback')
-  loginCallback(@Res() res: Response) {
-    res.redirect('/')
+  loginCallback(@Res() res: Response, @Request() req) {
+    this.usersService.createOrUpdateOne(req.user?.userinfo.sub, req.user?.userinfo)
+      .then((user) => {
+        req.session.logged_in_user_id = user.id
+        res.redirect('/')
+      }
+      )
   }
 
   @Get('/logout')

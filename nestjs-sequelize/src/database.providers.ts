@@ -3,6 +3,7 @@ import { Product } from './products/product.entity';
 import { Manual } from './manuals/manual.entity'
 import { Part } from './parts/part.entity';
 import { ProductPart } from './productparts/productpart.entity';
+import { User } from './users/user.entity';
 
 export const databaseProviders = [
   {
@@ -16,9 +17,9 @@ export const databaseProviders = [
         password: process.env.DATABASE_PASSWORD,
         database: process.env.DATABASE_NAME,
       });
-      sequelize.addModels([Product, Manual, Part, ProductPart]);
+      sequelize.addModels([Product, Manual, Part, ProductPart, User]);
       await sequelize.sync();
       return sequelize;
     },
   },
-];
+]

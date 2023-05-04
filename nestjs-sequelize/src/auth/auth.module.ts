@@ -4,6 +4,7 @@ import { OidcStrategy, buildOpenIdClient } from './oidc.strategy';
 import { SessionSerializer } from './session.serializer';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
+import { UsersModule } from 'src/users/users.module';
 
 const OidcStrategyFactory = {
     provide: 'OidcStrategy',
@@ -18,6 +19,7 @@ const OidcStrategyFactory = {
 @Module({
     imports: [
         PassportModule.register({ session: true, defaultStrategy: 'oidc' }),
+        UsersModule
     ],
     controllers: [AuthController],
     providers: [OidcStrategyFactory, SessionSerializer, AuthService],
