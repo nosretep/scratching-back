@@ -10,11 +10,8 @@ Sample full stack web application
 docker-compose -f docker-compose.yml up
 ```
 
-### Running postgres db locally
-```bash
-# postgres
-# Depends on a running postgres database that corresponds with the following database variables
-```
+### Postgres
+Must have postgres db running locally or remotely. .env variables prefix with `DATABASE_` below
 
 ### Start the frontend and backend
 ```bash
@@ -34,8 +31,8 @@ visit http://localhost:4200/products
 ### Env variables `nestjs-sequelize/.env`
 ```bash
 # Postgres
-DATABASE_HOST=
-DATABASE_PORT=
+DATABASE_HOST=localhost
+DATABASE_PORT=5432
 DATABASE_USERNAME=
 DATABASE_PASSWORD=
 DATABASE_NAME=
