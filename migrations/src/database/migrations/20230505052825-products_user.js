@@ -8,8 +8,8 @@ module.exports = {
       'user_id', // name of the key we're adding 
       {
         type: Sequelize.INTEGER,
-        allowNull: false,
-        defaultValue: 0,
+        allowNull: true,
+        // defaultValue: 0,
         references: {
           model: 'users', // name of Target model
           key: 'id', // key in Target model that we're referencing
