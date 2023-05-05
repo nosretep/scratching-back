@@ -16,10 +16,12 @@ npm run build
 docker build -t products-frontend .
 ```
 
+### Postgres
+Must have postgres db running locally or remotely. .env variables prefix with `DATABASE_` below
+
 ### Docker-compose
 ```bash
 # open-telemetry integration
-#   postgres
 #   backend (nestjs-sequelize)
 #   frontend (angular-frontend)
 #   keycloak
@@ -35,8 +37,8 @@ docker-compose -f docker-compose.yml up
 ### Env variables `local-full/.env`
 ```bash
 # Postgres
-DATABASE_HOST=
-DATABASE_PORT=
+DATABASE_HOST=docker.for.mac.host.internal
+DATABASE_PORT=5432
 DATABASE_USERNAME=
 DATABASE_PASSWORD=
 DATABASE_NAME=
