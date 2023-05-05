@@ -2,8 +2,9 @@ import { Table, Column, Model, BelongsTo, ForeignKey, HasOne, BelongsToMany, Ind
 import { Manual } from 'src/manuals/manual.entity';
 import { Part } from 'src/parts/part.entity';
 import { ProductPart } from 'src/productparts/productpart.entity';
+import { User } from 'src/users/user.entity';
 
-@Table({tableName: 'products'})
+@Table({ tableName: 'products' })
 export class Product extends Model {
   @Index
   @Column
@@ -17,4 +18,11 @@ export class Product extends Model {
 
   @BelongsToMany(() => Part, () => ProductPart)
   parts: Part[];
+
+  @ForeignKey(() => User)
+  @Column
+  user_id: number;
+
+  @BelongsTo(() => User)
+  user: User;
 }

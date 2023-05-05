@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker';
 
-describe('product spec', () => {
+describe('roles spec', () => {
     it('mary fullcrud should be able to create a product', () => {
         let productName = faker.commerce.productName();
         cy.login('mary', 'admin')

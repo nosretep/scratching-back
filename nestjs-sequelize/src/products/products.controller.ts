@@ -1,4 +1,4 @@
-import { Body, Headers, Controller, Get, Param, Post, Put, HttpException, HttpStatus, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put, HttpException, HttpStatus, UseGuards, Request } from '@nestjs/common';
 import { ProductDto } from 'src/dto/product.dto';
 import { Product } from './product.entity';
 import { ProductsService } from './products.service';
@@ -13,7 +13,8 @@ export class ProductsController {
 
   @Post()
   @Roles('can-write')
-  create(@Body() createProductDto: ProductDto): Promise<Product> {
+  create(@Body() createProductDto: ProductDto, @Request() req): Promise<Product> {
+    createProductDto.user_id = req.session.logged_in_user_id
     return this.productsService.create(createProductDto);
   }
 
