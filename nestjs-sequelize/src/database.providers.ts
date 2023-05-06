@@ -18,7 +18,10 @@ export const databaseProviders = [
         database: process.env.DATABASE_NAME,
       });
       sequelize.addModels([Product, Manual, Part, ProductPart, User]);
-      await sequelize.sync();
+      if (process.env.SEQUELIZE_RUN_SYNC === 'true') {
+        console.log('running sequelize.sync()')
+        await sequelize.sync();
+      }
       return sequelize;
     },
   },

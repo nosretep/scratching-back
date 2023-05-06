@@ -21,16 +21,20 @@ module.exports = {
       },
       createdAt: {
         type: Sequelize.DATE,
-        defaultValue: Sequelize.fn('NOW')
+        allowNull: false
       },
       updatedAt: {
         type: Sequelize.DATE,
-        defaultValue: Sequelize.fn('NOW')
+        allowNull: false
       }
-    });
+    }).then(function () {
+      return [
+        queryInterface.addIndex('products', ['name'])
+      ]
+    })
   },
 
   down: async (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('products');
+    return queryInterface.dropTable('products')
   }
 };

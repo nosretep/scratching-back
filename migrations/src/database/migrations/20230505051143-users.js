@@ -38,8 +38,21 @@ module.exports = {
       email_verified: {
         type: Sequelize.BOOLEAN,
         allowNull: false
+      },
+      createdAt: {
+        type: Sequelize.DATE,
+        allowNull: false
+      },
+      updatedAt: {
+        type: Sequelize.DATE,
+        allowNull: false
       }
-    });
+    }).then(function () {
+      return [
+        queryInterface.addIndex('users', ['preferred_username']),
+        queryInterface.addIndex('users', ['name'])
+      ]
+    })
   },
 
   down: async (queryInterface, Sequelize) => {
