@@ -99,7 +99,7 @@ contactPoints:
       - uid: opsgenie-uid
         type: opsgenie
         settings:
-          apiKey: $OPSGENIE_API_KEY
+          apiKey: $GRAFANA_OPSGENIE_API_KEY
           apiUrl: https://api.opsgenie.com/v2/alerts
           message: |
             {{ template "opsgenie-message-template" . }}
