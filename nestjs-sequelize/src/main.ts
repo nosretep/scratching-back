@@ -19,7 +19,7 @@ async function bootstrap() {
       httpOnly: true, // so that cookie can't be accessed via client-side script
     }
   }));
-  app.useGlobalPipes(new ValidationPipe({ transform: true }));
+  app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
 
   app.use(passport.initialize());
   app.use(passport.session());

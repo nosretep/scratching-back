@@ -32,7 +32,8 @@ export class ProductsService {
 
   create(createProductDto: ProductDto): Promise<Product> {
     return this.productsRepository.create({
-      name: createProductDto.name
+      name: createProductDto.name,
+      user_id: createProductDto.user_id
     });
   }
 
