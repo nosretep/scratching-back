@@ -1,6 +1,6 @@
 # Sample Web App Infrastructure
 
-Sample full stack web application
+This environment setup is to be used for making code changes to frontend and backend service code with minimal dependencies.
 
 ## Docker dev
 ```bash
@@ -10,8 +10,10 @@ Sample full stack web application
 docker-compose -f docker-compose.yml up
 ```
 
-### Postgres
-Must have postgres db running locally or remotely. .env variables prefix with `DATABASE_` below
+### Postgres & Migrations
+- Must have postgres db running locally or remotely. 
+- `.env` variables prefixed with `DATABASE_` below.
+- Run [migrations](../../migrations/README.md) first.
 
 ### Start the frontend and backend
 ```bash

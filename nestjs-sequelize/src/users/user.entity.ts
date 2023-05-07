@@ -3,26 +3,27 @@ import { Product } from 'src/products/product.entity';
 
 @Table({ tableName: 'users' })
 export class User extends Model {
-    @Index
-    @Column
+    @Column({ allowNull: false })
     sub: string;
 
-    @Column
+    @Index
+    @Column({ allowNull: false })
     preferred_username: string;
 
-    @Column
+    @Index
+    @Column({ allowNull: false })
     name: string;
 
-    @Column
+    @Column({ allowNull: false })
     given_name: string;
 
-    @Column
+    @Column({ allowNull: false })
     family_name: string;
 
-    @Column
+    @Column({ allowNull: false })
     email: string;
 
-    @Column
+    @Column({ allowNull: false })
     email_verified: boolean;
 
     @HasMany(() => Product)

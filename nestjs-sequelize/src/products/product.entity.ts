@@ -7,7 +7,7 @@ import { User } from 'src/users/user.entity';
 @Table({ tableName: 'products' })
 export class Product extends Model {
   @Index
-  @Column
+  @Column({ allowNull: false })
   name: string;
 
   @Column

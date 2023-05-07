@@ -3,7 +3,7 @@ import { Product } from 'src/products/product.entity';
 
 @Table({tableName: 'manuals'})
 export class Manual extends Model {
-  @Column
+  @Column({ allowNull: false })
   fulltext: string;
 
   @ForeignKey(() => Product)

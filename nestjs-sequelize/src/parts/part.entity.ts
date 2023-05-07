@@ -4,7 +4,7 @@ import { ProductPart } from 'src/productparts/productpart.entity'
 
 @Table({tableName: 'parts'})
 export class Part extends Model {
-  @Column
+  @Column({ allowNull: false })
   name: string;
 
   @Column
