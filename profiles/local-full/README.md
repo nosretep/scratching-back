@@ -1,42 +1,43 @@
 # Sample Web App Infrastructure
 
 This environment setup is to be used for adjusting provisioning files/configs/scripts with the whole system.
+- [backend (nestjs-sequelize)](../../nestjs-sequelize/README.md)
+- [frontend (angular-frontend)](../../angular-frontend/README.md)
+- [keycloak](../../keycloak/README.md)
+- otel-collector
+- jaeger
+- prometheus
+- blackbox-exporter
+- [alertmanager](../../alertmanager/README.md)
+- grafana
 
-## Docker full
-
-### Docker build frontend and backend images
-```bash
-# backend
-# from nestjs-sequelize directory
-docker build -t products-backend .
-
-# frontend
-# from angular-frontend directory
-npm run build
-docker build -t products-frontend .
-```
+&nbsp;
 
 ### Postgres & Migrations
-- Must have postgres db running locally or remotely. 
-- `.env` variables prefixed with `DATABASE_` below.
+- Must have postgres db running locally or remotely.
 - Run [migrations](../../migrations/README.md) first.
+
+&nbsp;
+
+### Docker build backend and frontend images
+- [Instructions for building NestJs-sequelize backend image](../../nestjs-sequelize/README.md#local-full-instructions)
+- [Instructions for building AngularJs frontend image](../../angular-frontend/README.md#local-full-instructions)
+
+&nbsp;
 
 ### Docker-compose
 ```bash
-# open-telemetry integration
-#   backend (nestjs-sequelize)
-#   frontend (angular-frontend)
-#   keycloak
-#   otel-collector
-#   jaeger
-#   prometheus
-#   blackbox-exporter
-#   alertmanager
-#   grafana
-docker-compose -f docker-compose.yml up
+$ docker-compose -f docker-compose.yml up
 ```
 
-### Env variables `local-full/.env`
+&nbsp;
+
+### E2E testing
+- [Cypress e2e testing](../../testing/README.md)
+
+&nbsp;
+
+### Env variables `profiles/local-full/.env`
 ```bash
 # Postgres
 DATABASE_HOST=docker.for.mac.host.internal
