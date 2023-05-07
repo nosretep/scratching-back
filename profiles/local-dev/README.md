@@ -13,7 +13,7 @@ docker-compose -f docker-compose.yml up
 ### Postgres & Migrations
 - Must have postgres db running locally or remotely. 
 - `.env` variables prefixed with `DATABASE_` below.
-- Run [migrations](migrations/README.md) first.
+- Run [migrations](../../migrations/README.md) first.
 
 ### Start the frontend and backend
 ```bash
