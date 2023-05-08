@@ -1,13 +1,32 @@
 
 # Sample Web App Infrastructure
 
-Sample web app using Angular, NestJs, Sequelize, Keycloak, OpenTelemetry, Jaeger, Prometheus, AlertManager, Grafana, Blackbox-Exporter.
+Sample web app using Angular frontend and NestJs backend.
 
-## local-dev
+[**Angular**](angular-frontend/README.md) frontend
 
-[local-dev](profiles/local-dev/README.md) is the bare minimum docker-compose, allowing for development of frontend and backend code.
+[**NestJs**](nestjs-sequelize/README.md) backend
 
+**Sequelize** ORM also used for migrations
 
-## local-full
+[**Keycloak**](keycloak/README.md) OIDC provider
 
-[local-full](profiles/local-full/README.md) is the full setup run locally.
+**OpenTelemetry** Otel Collector for collecting traces and spans
+
+**Jaeger** for viewing collected traces and spans
+
+**Prometheus** for collecting and querying metrics, and configuring alerts
+
+[**AlertManager**](alertmanager/README.md) for integrations with incident response tools (Opsgenie)
+
+**Grafana** for dashboards and viewing metrics
+
+**Blackbox-Exporter** for converting basic http(s) healthchecks into metrics
+
+&nbsp;
+
+# Development flows
+
+[`local-dev`](profiles/local-dev/README.md) profile to be used when developing frontend or backend features.
+
+[`local-full`](profiles/local-full/README.md) profile is for launching all the services together.
