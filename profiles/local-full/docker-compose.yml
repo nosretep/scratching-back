@@ -66,7 +66,7 @@ services:
       - 4200:4200
 
   otel_collector:
-    image: otel/opentelemetry-collector-contrib:latest
+    image: otel/opentelemetry-collector-contrib:0.76.1
     container_name: otel_collector
     volumes:
       - ../../otel-collector/config:/etc/otel-collector
@@ -79,7 +79,7 @@ services:
       - prometheus
 
   prometheus:
-    image: prom/prometheus:latest
+    image: prom/prometheus:v2.43.1
     container_name: prometheus
     volumes:
       - ../../prometheus/config:/etc/prometheus
@@ -90,7 +90,7 @@ services:
       - '--enable-feature=exemplar-storage'
 
   jaeger:
-    image: jaegertracing/all-in-one:latest
+    image: jaegertracing/all-in-one:1.45.0
     container_name: jaeger
     volumes:
       - ../../jaeger/config:/etc/jaeger/jaeger
@@ -102,7 +102,7 @@ services:
       - 16686:16686
 
   grafana:
-    image: grafana/grafana:latest
+    image: grafana/grafana:9.5.1
     container_name: grafana
     volumes:
       - ../../grafana/config:/etc/grafana/provisioning
@@ -124,7 +124,7 @@ services:
       - prometheus
 
   blackbox-exporter:
-    image: prom/blackbox-exporter:latest
+    image: prom/blackbox-exporter:v0.23.0
     container_name: blackbox-exporter
     ports:
       - 9115:9115
@@ -134,7 +134,7 @@ services:
       - ../../blackbox-exporter/config:/etc/blackbox-exporter
 
   alertmanager:
-    image: prom/alertmanager:latest
+    image: prom/alertmanager:v0.25.0
     container_name: alertmanager
     ports:
       - 9093:9093

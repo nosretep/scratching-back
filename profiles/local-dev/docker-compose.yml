@@ -3,7 +3,7 @@ services:
 
   otel_collector:
     container_name: otel_collector
-    image: mockserver/mockserver:latest
+    image: mockserver/mockserver:5.15.0
     environment:
       MOCKSERVER_LOG_LEVEL: DEBUG
       MOCKSERVER_SERVER_PORT: 4318
@@ -15,7 +15,7 @@ services:
 
   keycloak:
     container_name: keycloak
-    image: quay.io/keycloak/keycloak:latest
+    image: quay.io/keycloak/keycloak:21.1
     environment:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
