@@ -102,6 +102,9 @@ services:
       - 16686:16686
 
   grafana:
+    # depends_on:
+    #   keycloak:
+    #     condition: service_healthy
     image: grafana/grafana:9.5.1
     container_name: grafana
     volumes:
@@ -110,11 +113,21 @@ services:
       - GF_SERVER_HTTP_PORT=2345
       # - GF_SECURITY_ADMIN_USER=admin
       # - GF_SECURITY_ADMIN_PASSWORD=admin
-      - GF_AUTH_ANONYMOUS_ENABLED=true
-      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+      # - GF_AUTH_ANONYMOUS_ENABLED=true
+      # - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
       - GF_AUTH_DISABLE_LOGIN_FORM=true
       - GF_USERS_ALLOW_SIGN_UP=false
       - GRAFANA_OPSGENIE_API_KEY=${GRAFANA_OPSGENIE_API_KEY}
+      - GF_AUTH_GENERIC_OAUTH_ENABLED=true
+      - GF_AUTH_GENERIC_OAUTH_NAME=Auth0
+      - GF_AUTH_GENERIC_OAUTH_CLIENT_ID=grafana-client
+      - GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET=sf4l81ILpWcCHqplykdr5x7d4bkJiQo8
+      - GF_AUTH_GENERIC_OAUTH_SCOPES=openid profile email
+      - GF_AUTH_GENERIC_OAUTH_AUTH_URL=http://localhost:8787/realms/primary/protocol/openid-connect/auth
+      - GF_AUTH_GENERIC_OAUTH_TOKEN_URL=http://keycloak:8787/realms/primary/protocol/openid-connect/token
+      - GF_AUTH_GENERIC_OAUTH_API_URL=http://keycloak:8787/realms/primary/protocol/openid-connect/userinfo
+      - GF_AUTH_GENERIC_OAUTH_ROLE_ATTRIBUTE_PATH=contains(roles[*], 'grafana-admin') && 'Admin' || contains(roles[*], 'grafana-editor') && 'Editor' || 'Viewer'
+      - GF_AUTH_SIGNOUT_REDIRECT_URL=http://localhost:8787/realms/primary/protocol/openid-connect/logout?client_id=grafana-client&post_logout_redirect_uri=http%3A%2F%2Flocalhost%3A2345%2F
     # expose:
     #   - 2345
     ports:
