@@ -1,5 +1,5 @@
 {
-  "realm" : "nestjs",
+  "realm" : "primary",
   "users" : [ {
     "id" : "a47a8aa0-51d3-4239-abc8-4d11e819bd0a",
     "createdTimestamp" : 1682371866695,
@@ -20,9 +20,9 @@
     } ],
     "disableableCredentialTypes" : [ ],
     "requiredActions" : [ ],
-    "realmRoles" : [ "default-roles-nestjs" ],
+    "realmRoles" : [ "default-roles-primary" ],
     "clientRoles" : {
-      "nestjs-client" : [ "can-read" ]
+      "webapp-client" : [ "can-read" ]
     },
     "notBefore" : 0,
     "groups" : [ ]
@@ -46,9 +46,10 @@
     } ],
     "disableableCredentialTypes" : [ ],
     "requiredActions" : [ ],
-    "realmRoles" : [ "default-roles-nestjs" ],
+    "realmRoles" : [ "default-roles-primary" ],
     "clientRoles" : {
-      "nestjs-client" : [ "can-delete", "can-read", "can-write" ]
+      "webapp-client" : [ "can-delete", "can-read", "can-write" ],
+      "grafana-client" : [ "grafana-admin" ]
     },
     "notBefore" : 0,
     "groups" : [ ]
@@ -72,9 +73,9 @@
     } ],
     "disableableCredentialTypes" : [ ],
     "requiredActions" : [ ],
-    "realmRoles" : [ "default-roles-nestjs" ],
+    "realmRoles" : [ "default-roles-primary" ],
     "clientRoles" : {
-      "nestjs-client" : [ "can-delete", "can-read", "can-write" ]
+      "webapp-client" : [ "can-delete", "can-read", "can-write" ]
     },
     "notBefore" : 0,
     "groups" : [ ]
