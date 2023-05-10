@@ -2,9 +2,25 @@
 
 ### Realms and Users
 
+1. Export existing realms, clients, and users json files from running Keycloak.
+
 ```bash
-# realms and initial users are imported through docker-compose
---import-realm
+# export realm from running Keycloak
+$ docker exec keycloak /opt/keycloak/bin/kc.sh export --dir /tmp/exports
+$ docker cp keycloak:/tmp/exports /path/to/keycloak/config/realms/import
+```
+
+2. Import files during Keyloak startup.
+
+```bash
+# snippet from docker-compose.yml
+...
+volumes:
+    - /path/to/keycloak/config/realms/import:/opt/keycloak/data/import
+...
+entrypoint: [
+    "--import-realm",
+
 ```
 
 &nbsp;
